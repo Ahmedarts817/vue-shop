@@ -1,11 +1,46 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import CategoriesView from "../views/categories/CategoriesView";
+import AddCategoryView from "../views/categories/AddCategoryView";
+import CategoryDetailsView from "../views/categories/CategoryDetailsView";
+import ProductsView from "../views/products/ProductsView";
+import ProductDetatailsView from "../views/products/ProductDetailsView";
+import NotFoundPage from "../views/NotFoundPage";
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/categories",
+    name: "categories",
+    component: CategoriesView,
+  },
+  {
+    path: "/categories/add",
+    name: "addCategory",
+    component: AddCategoryView,
+  },
+  {
+    path: "/categories/:id",
+    name: "CategoryDetails",
+    component: CategoryDetailsView,
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: ProductsView,
+  },
+  {
+    path: "/products/:id",
+    name: "ProductDetails",
+    component: ProductDetatailsView,
+  },
+  {
+    path: "/*",
+    component: NotFoundPage,
   },
   {
     path: "/about",

@@ -43,18 +43,29 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+    <div>
+      <ul>
+        <li>
+          <router-link to="/categories"><a href="">Categories</a></router-link>
+        </li>
+        <li>
+          <router-link to="/products"><a href="">Products</a></router-link>
+        </li>
+        <li><a href="">Cart</a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
 };
 </script>
