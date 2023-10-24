@@ -2,10 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CategoriesView from "../views/categories/CategoriesView";
 import AddCategoryView from "../views/categories/AddCategoryView";
+import EditCategoryView from "../views/categories/EditCategoryView";
 import CategoryDetailsView from "../views/categories/CategoryDetailsView";
 import ProductsView from "../views/products/ProductsView";
 import ProductDetatailsView from "../views/products/ProductDetailsView";
 import NotFoundPage from "../views/NotFoundPage";
+import SignUp from "../views/auth/SignUp";
+import SignIn from "../views/auth/SignIn";
 
 const routes = [
   {
@@ -22,6 +25,11 @@ const routes = [
     path: "/categories/add",
     name: "addCategory",
     component: AddCategoryView,
+  },
+  {
+    path: "/categories/Edit/:id",
+    name: "EditCategory",
+    component: EditCategoryView,
   },
   {
     path: "/categories/:id",
@@ -41,6 +49,16 @@ const routes = [
   {
     path: "/*",
     component: NotFoundPage,
+  },
+  {
+    path: "/signup",
+    name: "signUp",
+    component: SignUp,
+  },
+  {
+    path: "/signin",
+    name: "signIn",
+    component: SignIn,
   },
   {
     path: "/about",

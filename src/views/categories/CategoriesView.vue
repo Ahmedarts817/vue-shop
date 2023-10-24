@@ -4,9 +4,9 @@
       <div class="text-center my-4">
         <h3>Our Categories</h3>
       </div>
-      <!-- <router-link :to="{ name: 'AddCategory' }">
-        <a class="btn">Add Category</a>
-      </router-link> -->
+      <router-link :to="{ name: 'addCategory' }">
+        <a class="btn btn-success">Add Category</a>
+      </router-link>
     </div>
     <div class="row">
       <div

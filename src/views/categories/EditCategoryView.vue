@@ -45,7 +45,7 @@
 const axios = require("axios");
 
 export default {
-  name: "AddCategory",
+  name: "EditCategory",
   data() {
     return {
       name: "",
@@ -62,11 +62,11 @@ export default {
       formData.append("name", this.name);
       formData.append("image", this.image);
 
-      const baseURL = "http://localhost:8000/api/v1/";
+      const viewURL = "http://localhost:8000/api/v1/";
 
       await axios({
-        method: "post",
-        url: `${baseURL}categories`,
+        method: "put",
+        url: `${viewURL}categories/${this.$route.params.id}`,
         data: formData,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
