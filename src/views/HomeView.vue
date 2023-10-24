@@ -1,58 +1,34 @@
 <template>
   <div class="home">
-    <div id="carouselExample" class="carousel slide mx-auto p-2 w-50">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="https://picsum.photos/id/0/5000/3333"
-            class="d-block w-100"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://picsum.photos/id/3/5000/3333"
-            class="d-block w-100"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://picsum.photos/id/5/5000/3333"
-            class="d-block w-100"
-            alt="..."
-          />
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExample"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <div>
-      <ul>
+      <ul class="list-unstyled">
         <li>
           <router-link to="/categories"><a href="">Categories</a></router-link>
         </li>
         <li>
+          <router-link to="/subcategories"
+            ><a href="">Subcategories</a></router-link
+          >
+        </li>
+        <li>
+          <router-link to="/brands"><a href="">Brands</a></router-link>
+        </li>
+        <li>
           <router-link to="/products"><a href="">Products</a></router-link>
         </li>
-        <li><a href="">Cart</a></li>
+        <li>
+          <router-link to="/wishlist"><a href="">Wishlist</a></router-link>
+        </li>
+        <li>
+          <router-link to="/coupons"><a href="">Coupons</a></router-link>
+        </li>
+        <li>
+          <router-link to="/cart"><a href="">Cart</a></router-link>
+        </li>
+        <li>
+          <router-link to="/orders"><a href="">Orders</a></router-link>
+        </li>
       </ul>
     </div>
   </div>

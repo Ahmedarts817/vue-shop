@@ -73,7 +73,7 @@ export default {
         },
       })
         .then(() => {
-          console.log("hi");
+          this.$router.push("/categories");
         })
         .catch((err) => {
           console.log(err);

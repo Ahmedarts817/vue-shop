@@ -1,9 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+//category router
 import CategoriesView from "../views/categories/CategoriesView";
 import AddCategoryView from "../views/categories/AddCategoryView";
 import EditCategoryView from "../views/categories/EditCategoryView";
 import CategoryDetailsView from "../views/categories/CategoryDetailsView";
+//subcategory router
+import SubcategoriesView from "../views/subcategories/SubcategoriesView";
+import AddSubcategoryView from "../views/subcategories/AddSubcategoryView";
+import EditSubcategoryView from "../views/subcategories/EditSubcategoryView";
+import SubcategoryDetailsView from "../views/subcategories/SubcategoryDetailsView";
+
 import ProductsView from "../views/products/ProductsView";
 import ProductDetatailsView from "../views/products/ProductDetailsView";
 import NotFoundPage from "../views/NotFoundPage";
@@ -35,6 +42,26 @@ const routes = [
     path: "/categories/:id",
     name: "CategoryDetails",
     component: CategoryDetailsView,
+  },
+  {
+    path: "/subcategories",
+    name: "subcategories",
+    component: SubcategoriesView,
+  },
+  {
+    path: "/subcategories/add",
+    name: "addSubcategory",
+    component: AddSubcategoryView,
+  },
+  {
+    path: "/subcategories/Edit/:id",
+    name: "editSubcategory",
+    component: EditSubcategoryView,
+  },
+  {
+    path: "/subcategories/:id",
+    name: "subategoryDetails",
+    component: SubcategoryDetailsView,
   },
   {
     path: "/products",

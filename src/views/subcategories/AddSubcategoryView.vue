@@ -2,15 +2,15 @@
   <div class="container">
     <div class="row">
       <div class="text-center my-4">
-        <h3>Edit Category</h3>
+        <h3>Add Subategory</h3>
       </div>
     </div>
     <div class="row text-center">
       <div class="col-3"></div>
       <div class="col-6">
-        <form action="" enctype="multipart/form-data">
+        <form action="">
           <div class="form-group">
-            <label for="">Category Name</label>
+            <label for="">Subategory Name</label>
             <input
               v-model="name"
               type="text"
@@ -20,14 +20,18 @@
             />
           </div>
           <div class="form-group">
-            <label for="">Category Image</label>
-            <input
-              @change="selectFile"
-              type="file"
-              class="form-control"
-              ref="file"
-            />
+            <label for="">category</label>
+            <select v-model="category" name="" id="" class="form-control">
+              <option
+                v-for="category of categories"
+                :key="category.id"
+                :value="category._id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
           </div>
+
           <input
             @click="addCategory"
             type="button"
@@ -45,40 +49,41 @@
 const axios = require("axios");
 
 export default {
-  name: "EditCategory",
+  name: "AddCategory",
   data() {
     return {
       name: "",
-      image: "",
+      category: "",
+      categories: null,
+      baseURL: "http://localhost:8000/api/v1/",
     };
   },
   methods: {
-    selectFile() {
-      this.image = this.$refs.file.files[0];
-      console.log(this.image);
+    async fetchData() {
+      await axios
+        .get(`${this.baseURL}categories`)
+        .then((res) => (this.categories = res.data.data))
+        .catch((err) => console.log(err));
     },
     async addCategory() {
-      const formData = new FormData();
-      formData.append("name", this.name);
-      formData.append("image", this.image);
-
-      const viewURL = "http://localhost:8000/api/v1/";
-
       await axios({
-        method: "put",
-        url: `${viewURL}categories/${this.$route.params.id}`,
-        data: formData,
+        method: "post",
+        url: `${this.baseURL}subcategories`,
+        data: { name: this.name, category: this.category },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
         .then(() => {
-          this.$router.push("/categories");
+          this.$router.push("/subcategories");
         })
         .catch((err) => {
           console.log(err);
         });
     },
+  },
+  mounted() {
+    this.fetchData();
   },
 };
 </script>
