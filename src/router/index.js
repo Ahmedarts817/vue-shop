@@ -10,6 +10,11 @@ import SubcategoriesView from "../views/subcategories/SubcategoriesView";
 import AddSubcategoryView from "../views/subcategories/AddSubcategoryView";
 import EditSubcategoryView from "../views/subcategories/EditSubcategoryView";
 import SubcategoryDetailsView from "../views/subcategories/SubcategoryDetailsView";
+//Brand Router
+import BrandsView from "../views/brands/BrandsView";
+import BrandDetailsView from "../views/brands/BrandDetailsView";
+import AddBrandView from "../views/brands/AddBrandView";
+import EditBrandView from "../views/brands/EditBrandView";
 
 import ProductsView from "../views/products/ProductsView";
 import ProductDetatailsView from "../views/products/ProductDetailsView";
@@ -62,6 +67,26 @@ const routes = [
     path: "/subcategories/:id",
     name: "subategoryDetails",
     component: SubcategoryDetailsView,
+  },
+  {
+    path: "/brands",
+    name: "brands",
+    component: BrandsView,
+  },
+  {
+    path: "/brands/add",
+    name: "addBrand",
+    component: AddBrandView,
+  },
+  {
+    path: "/brands/:id",
+    name: "brandDetails",
+    component: BrandDetailsView,
+  },
+  {
+    path: "/brands/:id",
+    name: "editBrand",
+    component: EditBrandView,
   },
   {
     path: "/products",

@@ -1,14 +1,15 @@
 <template>
-  <h1 class="mb-5">Subcategory Details</h1>
+  <h1 class="mb-5">Brand Details</h1>
 
   <div>
-    <h3>{{ subcategory.name }}</h3>
-    <h5>category : {{ categoryName }}</h5>
+    <h3>{{ brand.name }}</h3>
+    <div><img :src="brand.image" width="400" alt="" /></div>
+
     <router-link
-      :to="{ name: 'editSubcategory', params: { id: this.$route.params.id } }"
+      :to="{ name: 'editBrand', params: { id: this.$route.params.id } }"
       ><a class="m-4 btn btn-success" href="">Edit</a></router-link
     >
-    <button @click="deleteSubategory" class="m-4 btn btn-success" href="">
+    <button @click="deleteBrand" class="m-4 btn btn-success" href="">
       Delete
     </button>
   </div>
@@ -18,36 +19,30 @@
 import axios from "axios";
 
 export default {
-  name: "CategoryDetailsView",
+  name: "BrandDetailsView",
   data() {
     return {
-      subcategory: {},
+      brand: {},
       baseUrl: "http://localhost:8000/api/v1/",
-      categoryName: null,
     };
   },
   methods: {
     async fetchData() {
       await axios
-        .get(`${this.baseUrl}subcategories/${this.$route.params.id}`)
-        .then(
-          (res) => (
-            (this.subcategory = res.data.data),
-            (this.categoryName = res.data.data.category.name)
-          )
-        )
+        .get(`${this.baseUrl}brands/${this.$route.params.id}`)
+        .then((res) => (this.brand = res.data.data))
         .catch((err) => console.log(err));
     },
-    async deleteSubategory() {
+    async deleteBrand() {
       await axios({
         method: "delete",
-        url: `${this.baseUrl}subcategories/${this.$route.params.id}`,
+        url: `${this.baseUrl}brands/${this.$route.params.id}`,
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
         .then(
           setTimeout(() => {
             this.fetchData();
-            this.$router.push("/subcategories");
+            this.$router.push("/brands");
           }, 1)
         )
         .catch((err) => console.log(err));
