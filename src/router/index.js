@@ -15,9 +15,11 @@ import BrandsView from "../views/brands/BrandsView";
 import BrandDetailsView from "../views/brands/BrandDetailsView";
 import AddBrandView from "../views/brands/AddBrandView";
 import EditBrandView from "../views/brands/EditBrandView";
-
+// Product Router
 import ProductsView from "../views/products/ProductsView";
 import ProductDetatailsView from "../views/products/ProductDetailsView";
+import AddProductView from "../views/products/AddProductView";
+import EditProductView from "../views/products/EditProductView";
 import NotFoundPage from "../views/NotFoundPage";
 import SignUp from "../views/auth/SignUp";
 import SignIn from "../views/auth/SignIn";
@@ -94,9 +96,19 @@ const routes = [
     component: ProductsView,
   },
   {
+    path: "/products/add",
+    name: "addProduct",
+    component: AddProductView,
+  },
+  {
     path: "/products/:id",
-    name: "ProductDetails",
+    name: "productDetails",
     component: ProductDetatailsView,
+  },
+  {
+    path: "/products/:id",
+    name: "editProduct",
+    component: EditProductView,
   },
   {
     path: "/*",
