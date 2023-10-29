@@ -20,6 +20,8 @@ import ProductsView from "../views/products/ProductsView";
 import ProductDetatailsView from "../views/products/ProductDetailsView";
 import AddProductView from "../views/products/AddProductView";
 import EditProductView from "../views/products/EditProductView";
+//wishlist router
+import WishlistView from "../views/wishlist/WishlistView";
 import NotFoundPage from "../views/NotFoundPage";
 import SignUp from "../views/auth/SignUp";
 import SignIn from "../views/auth/SignIn";
@@ -109,6 +111,11 @@ const routes = [
     path: "/products/:id",
     name: "editProduct",
     component: EditProductView,
+  },
+  {
+    path: "/wishlist",
+    name: "wishlist",
+    component: WishlistView,
   },
   {
     path: "/*",

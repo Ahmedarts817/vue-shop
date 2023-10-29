@@ -29,9 +29,8 @@ export default {
 
   data() {
     return {
-      // baseUrl: "https://udemy-eshopp-app.onrender.com/api/v1/",
-      baseUrl: "http://localhost:8000/api/v1/",
       categories: null,
+      baseUrl: "http://localhost:8000/api/v1/",
     };
   },
   methods: {

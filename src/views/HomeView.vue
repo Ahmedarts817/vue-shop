@@ -4,6 +4,12 @@
     <div>
       <ul class="list-unstyled">
         <li>
+          <router-link to="/signin"><a href="">Signin</a></router-link>
+        </li>
+        <li>
+          <router-link to="/signup"><a href="">Signup</a></router-link>
+        </li>
+        <li>
           <router-link to="/categories"><a href="">Categories</a></router-link>
         </li>
         <li>
