@@ -13,6 +13,17 @@
     </div>
   </div>
   <h4>Total Cart Price: {{ cart.totalCartPrice }}</h4>
+  <h4 v-if="cart.totalPriceAfterDiscount">
+    Total Cart Price After Discount : {{ cart.totalPriceAfterDiscount }}
+  </h4>
+  <button @click="showCoupon" class="btn btn-primary">Apply Coupon</button>
+  <div v-if="showCouponCondition">
+    <div class="form-group">
+      <label for="">Coupon name</label>
+      <input v-model="coupon" type="text" name="" id="" class="form-control" />
+    </div>
+    <button @click="applyCoupon" class="btn btn-primary">Apply</button>
+  </div>
 </template>
 
 <script>
@@ -24,6 +35,9 @@ export default {
       baseUrl: "http://localhost:8000/api/v1/",
       cart: {},
       cartItems: [],
+      coupon: "",
+      totalPriceAfterDiscount: "",
+      showCouponCondition: false,
     };
   },
   methods: {
@@ -36,6 +50,7 @@ export default {
         .then((res) => {
           this.cart = res.data.data;
           this.cartItems = res.data.data.cartItems;
+          this.totalPriceAfterDiscount = res.data.data.totalPriceAfterDiscount;
         })
         .catch((err) => console.log(err));
     },
@@ -49,6 +64,22 @@ export default {
           this.fetchData();
         })
         .catch((err) => console.log(err));
+    },
+    async applyCoupon() {
+      await axios({
+        method: "put",
+        url: `${this.baseUrl}cart/applyCoupon`,
+        data: { coupon: this.coupon },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then(() => {
+          this.fetchData();
+          this.showCouponCondition = false;
+        })
+        .catch((err) => console.log(err));
+    },
+    showCoupon() {
+      this.showCouponCondition = true;
     },
   },
   mounted() {
