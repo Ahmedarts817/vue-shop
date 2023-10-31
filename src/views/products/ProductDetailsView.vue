@@ -42,23 +42,39 @@
 
     <router-link
       :to="{ name: 'editProduct', params: { id: this.$route.params.id } }"
-      ><a class="m-4 btn btn-success" href="">Edit</a></router-link
+      ><a class="m-4 btn btn-primary" href="">Edit</a></router-link
     >
-    <button @click="deleteProduct" class="m-4 btn btn-success" href="">
+    <button @click="deleteProduct" class="m-4 btn btn-primary" href="">
       Delete
     </button>
+    <!-- wishlist buttons  -->
     <button
       v-if="!itemIsInWishlist && !addedToWishlist"
       @click="addToWishlist"
-      class="m-4 btn btn-success"
+      class="m-4 btn btn-primary"
     >
       Add to wishlist
     </button>
-    <button
-      v-if="addedToWishlist && itemIsInWishlist"
-      class="m-4 btn btn-success"
-    >
+    <button v-if="addedToWishlist" class="m-4 btn btn-success">
       Added to wishlist successfuly
+    </button>
+    <button v-if="itemIsInWishlist" class="m-4 btn btn-success">
+      Item is already in wishlist
+    </button>
+
+    <!-- cart buttons  -->
+    <button
+      v-if="!itemIsInCart && !addedToCart"
+      @click="addToCart"
+      class="m-4 btn btn-primary"
+    >
+      Add to Cart
+    </button>
+    <button v-if="addedToCart" class="m-4 btn btn-success">
+      Added to cart successfuly
+    </button>
+    <button v-if="itemIsInCart" class="m-4 btn btn-success">
+      Item is already in cart
     </button>
   </div>
 </template>
@@ -74,12 +90,17 @@ export default {
       baseUrl: "http://localhost:8000/api/v1/",
       images: "",
       wishlistItems: [],
+      cartItems: [],
       addedToWishlist: false,
+      addedToCart: false,
     };
   },
   computed: {
     itemIsInWishlist() {
       return this.wishlistItems.some((item) => this.product._id == item._id);
+    },
+    itemIsInCart() {
+      return this.cartItems.some((item) => this.product_id == item.product.id);
     },
   },
   methods: {
@@ -97,6 +118,13 @@ export default {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
         .then((res) => (this.wishlistItems = res.data.data))
+        .catch((err) => console.log(err));
+      await axios({
+        method: "get",
+        url: `${this.baseUrl}cart`,
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then((res) => (this.cartItems = res.data.data.cartItems))
         .catch((err) => console.log(err));
     },
     async deleteProduct() {
@@ -122,8 +150,24 @@ export default {
       })
         .then(() => {
           this.addedToWishlist = true;
-
-          this.itemIsInWishlist = true;
+          setTimeout(() => {
+            this.$router.push("/products");
+          }, 1500);
+        })
+        .catch((err) => console.log(err));
+    },
+    async addToCart() {
+      axios({
+        method: "post",
+        url: `${this.baseUrl}cart`,
+        data: { productId: this.$route.params.id },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then(() => {
+          this.addedToCart = true;
+          setTimeout(() => {
+            this.$router.push("/products");
+          }, 1500);
         })
         .catch((err) => console.log(err));
     },

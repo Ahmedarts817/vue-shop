@@ -22,9 +22,19 @@ import AddProductView from "../views/products/AddProductView";
 import EditProductView from "../views/products/EditProductView";
 //wishlist router
 import WishlistView from "../views/wishlist/WishlistView";
-import NotFoundPage from "../views/NotFoundPage";
+// cart router
+import CartView from "../views/cart/CartView";
+
+// Coupon router
+import CouponsView from "../views/coupons/CouponsView";
+import CouponDetailsView from "../views/coupons/CouponDetailsView";
+import AddCouponView from "../views/coupons/AddCouponView";
+import EditCouponView from "../views/coupons/EditCouponView";
+// auth router
+
 import SignUp from "../views/auth/SignUp";
 import SignIn from "../views/auth/SignIn";
+import NotFoundPage from "../views/NotFoundPage";
 
 const routes = [
   {
@@ -116,6 +126,31 @@ const routes = [
     path: "/wishlist",
     name: "wishlist",
     component: WishlistView,
+  },
+  {
+    path: "/coupons",
+    name: "coupons",
+    component: CouponsView,
+  },
+  {
+    path: "/coupons/:id",
+    name: "couponDetails",
+    component: CouponDetailsView,
+  },
+  {
+    path: "/coupons/add",
+    name: "addCoupon",
+    component: AddCouponView,
+  },
+  {
+    path: "/coupons/:id/edit",
+    name: "editCoupon",
+    component: EditCouponView,
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: CartView,
   },
   {
     path: "/*",
