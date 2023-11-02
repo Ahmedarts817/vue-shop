@@ -1,6 +1,7 @@
 <template>
   <h2>My Cart</h2>
   <div>
+    <p>{{ cartId }}</p>
     <h2>Cart Items</h2>
     <div v-for="cartItem of cartItems" :key="cartItem.id">
       <h5>
@@ -24,6 +25,11 @@
     </div>
     <button @click="applyCoupon" class="btn btn-primary">Apply</button>
   </div>
+  <router-link :to="{ name: 'cashOrder', params: { id: cartId } }">
+    <button class="btn btn-primary">
+      Cash Checkout {{ cart._id }}
+    </button></router-link
+  >
 </template>
 
 <script>
@@ -34,6 +40,7 @@ export default {
     return {
       baseUrl: "http://localhost:8000/api/v1/",
       cart: {},
+      cartId: {},
       cartItems: [],
       coupon: "",
       totalPriceAfterDiscount: "",
@@ -49,6 +56,7 @@ export default {
       })
         .then((res) => {
           this.cart = res.data.data;
+          this.cartId = res.data.data._id;
           this.cartItems = res.data.data.cartItems;
           this.totalPriceAfterDiscount = res.data.data.totalPriceAfterDiscount;
         })

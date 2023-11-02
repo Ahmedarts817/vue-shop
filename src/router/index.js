@@ -30,6 +30,8 @@ import CouponsView from "../views/coupons/CouponsView";
 import CouponDetailsView from "../views/coupons/CouponDetailsView";
 import AddCouponView from "../views/coupons/AddCouponView";
 import EditCouponView from "../views/coupons/EditCouponView";
+//order router
+import CashOrderView from "../views/orders/CashOrderView";
 // auth router
 
 import SignUp from "../views/auth/SignUp";
@@ -151,6 +153,11 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: CartView,
+  },
+  {
+    path: "/orders/:id",
+    name: "cashOrder",
+    component: CashOrderView,
   },
   {
     path: "/*",
