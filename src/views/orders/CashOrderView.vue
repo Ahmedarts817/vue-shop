@@ -11,6 +11,9 @@
     />
   </div>
   <button @click="cashOrder" class="btn btn-primary">Create Cash Order</button>
+  <button @click="createCheckout" class="btn btn-primary">
+    Create CheckOut Session
+  </button>
 </template>
 
 <script>
@@ -21,6 +24,7 @@ export default {
     return {
       shippingAddress: "",
       baseUrl: "http://localhost:8000/api/v1/",
+      session: {},
     };
   },
   methods: {
@@ -35,6 +39,23 @@ export default {
       })
         .then(() => {
           console.log(this.$route.params.cartId);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    async createCheckout() {
+      await axios({
+        method: "get",
+        url: `${this.baseUrl}orders/checkout-session/${this.$route.params.id}`,
+        data: {
+          shippingAddress: this.shippingAddress,
+        },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then((res) => {
+          this.session = res.data.data.url;
+          window.open(res.data.data.url);
         })
         .catch((err) => {
           console.log(err);

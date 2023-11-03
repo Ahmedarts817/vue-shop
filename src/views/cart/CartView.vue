@@ -1,16 +1,10 @@
 <template>
   <h2>My Cart</h2>
+  <p>{{ cart }}</p>
   <div>
-    <p>{{ cartId }}</p>
     <h2>Cart Items</h2>
     <div v-for="cartItem of cartItems" :key="cartItem.id">
-      <h5>
-        product title: {{ cartItem.product.title }} , product quantity:
-        {{ cartItem.quantity }} , product price: {{ cartItem.price }} ,
-        <button @click="removeFromCart(cartItem._id)" class="btn btn-primary">
-          Remove from cart
-        </button>
-      </h5>
+      <CartItemComponent :cartItem="cartItem" :fetchData="fetchData" />
     </div>
   </div>
   <h4>Total Cart Price: {{ cart.totalCartPrice }}</h4>
@@ -26,14 +20,14 @@
     <button @click="applyCoupon" class="btn btn-primary">Apply</button>
   </div>
   <router-link :to="{ name: 'cashOrder', params: { id: cartId } }">
-    <button class="btn btn-primary">
-      Cash Checkout {{ cart._id }}
-    </button></router-link
+    <button class="btn btn-primary">Create Order</button></router-link
   >
+  <button @click="clearCart" class="btn btn-primary">Clear Cart</button>
 </template>
 
 <script>
 import axios from "axios";
+import CartItemComponent from "./CartItemComponent.vue";
 export default {
   name: "CartView",
   data() {
@@ -73,6 +67,18 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+    async updateItemQuantity(itemId) {
+      await axios({
+        method: "put",
+        url: `${this.baseUrl}cart/${itemId}`,
+        data: { quantity: this.quantity },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then(() => {
+          this.fetchData();
+        })
+        .catch((err) => console.log(err));
+    },
     async applyCoupon() {
       await axios({
         method: "put",
@@ -89,9 +95,21 @@ export default {
     showCoupon() {
       this.showCouponCondition = true;
     },
+    async clearCart() {
+      await axios({
+        method: "delete",
+        url: `${this.baseUrl}cart`,
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+        .then(() => {
+          this.$router.push("/products");
+        })
+        .catch((err) => console.log(err));
+    },
   },
   mounted() {
     this.fetchData();
   },
+  components: { CartItemComponent },
 };
 </script>
