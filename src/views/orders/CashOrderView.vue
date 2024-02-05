@@ -1,30 +1,43 @@
 <template>
-  <h1>Cash Order</h1>
-  <div class="form-group">
-    <label for="">Shipping Address</label>
-    <input
-      v-model="shippingAddress"
-      type="text"
-      name=""
-      id=""
-      class="form-control"
-    />
+  <div class="container">
+    <div class="form w-50 mx-auto my-5">
+      <h1 class="mb-5">Cash Order</h1>
+      <div class="form-group">
+        <label for="">Shipping Address</label>
+        <input
+          v-model="shippingAddress"
+          type="text"
+          name=""
+          id=""
+          class="form-control"
+        />
+        <div class="buttons d-flex justify-content-center gap-3 mt-3">
+          <button @click="cashOrder" class="btn btn-primary">
+            Create Cash Order
+          </button>
+          <button @click="createCheckout" class="btn btn-primary">
+            Create CheckOut Session
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <button @click="cashOrder" class="btn btn-primary">Create Cash Order</button>
-  <button @click="createCheckout" class="btn btn-primary">
-    Create CheckOut Session
-  </button>
+  <ErrorView :error="error" :closeError="closeError" v-show="error" />
 </template>
 
 <script>
 import axios from "axios";
+import ErrorView from "@/components/ErrorView.vue";
+
 export default {
   name: "CashOrderView",
+  components: { ErrorView },
   data() {
     return {
       shippingAddress: "",
       baseUrl: "http://localhost:8000/api/v1/",
       session: {},
+      error: null,
     };
   },
   methods: {
@@ -39,6 +52,8 @@ export default {
       })
         .then(() => {
           console.log(this.$route.params.cartId);
+          this.$router.push("/coupons");
+          this.$router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -59,7 +74,11 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.error = err.message;
         });
+    },
+    closeError() {
+      this.error = null;
     },
   },
 };

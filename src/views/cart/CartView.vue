@@ -1,28 +1,37 @@
 <template>
-  <h2>My Cart</h2>
-  <p>{{ cart }}</p>
-  <div>
-    <h2>Cart Items</h2>
-    <div v-for="cartItem of cartItems" :key="cartItem.id">
-      <CartItemComponent :cartItem="cartItem" :fetchData="fetchData" />
+  <div class="container">
+    <h2 class="text-center my-4">My Cart</h2>
+    <div>
+      <h2>Cart Items</h2>
+      <div v-for="cartItem of cartItems" :key="cartItem.id">
+        <CartItemComponent :cartItem="cartItem" :fetchData="fetchData" />
+      </div>
     </div>
-  </div>
-  <h4>Total Cart Price: {{ cart.totalCartPrice }}</h4>
-  <h4 v-if="cart.totalPriceAfterDiscount">
-    Total Cart Price After Discount : {{ cart.totalPriceAfterDiscount }}
-  </h4>
-  <button @click="showCoupon" class="btn btn-primary">Apply Coupon</button>
-  <div v-if="showCouponCondition">
-    <div class="form-group">
-      <label for="">Coupon name</label>
-      <input v-model="coupon" type="text" name="" id="" class="form-control" />
+    <h4 class="my-4">Total Cart Price: {{ cart.totalCartPrice }}</h4>
+    <h4 v-if="cart.totalPriceAfterDiscount">
+      Total Cart Price After Discount : {{ cart.totalPriceAfterDiscount }}
+    </h4>
+    <button @click="showCoupon" class="btn btn-primary m-3">
+      Apply Coupon
+    </button>
+    <div v-if="showCouponCondition">
+      <div class="form-group">
+        <label for="">Coupon name</label>
+        <input
+          v-model="coupon"
+          type="text"
+          name=""
+          id=""
+          class="form-control"
+        />
+      </div>
+      <button @click="applyCoupon" class="btn btn-primary m-3">Apply</button>
     </div>
-    <button @click="applyCoupon" class="btn btn-primary">Apply</button>
+    <router-link :to="{ name: 'cashOrder', params: { id: cartId } }">
+      <button class="btn btn-primary">Create Order</button></router-link
+    >
+    <button @click="clearCart" class="btn btn-primary m-3">Clear Cart</button>
   </div>
-  <router-link :to="{ name: 'cashOrder', params: { id: cartId } }">
-    <button class="btn btn-primary">Create Order</button></router-link
-  >
-  <button @click="clearCart" class="btn btn-primary">Clear Cart</button>
 </template>
 
 <script>

@@ -4,7 +4,10 @@
       <div class="text-center my-4">
         <h3>Our Products</h3>
       </div>
-      <router-link :to="{ name: 'addProduct' }">
+      <router-link
+        :to="{ name: 'addProduct' }"
+        v-show="$route.name === 'adminproducts'"
+      >
         <a class="btn btn-success">Add Product</a>
       </router-link>
     </div>
@@ -12,20 +15,9 @@
       <div
         v-for="product of products"
         :key="product.id"
-        class="col-md-6 col-lg-4 p-2 m-2 card"
+        class="col-md-6 col-lg-4 col-xl-3 p-2"
       >
-        <div><img :src="product.imageCover" alt="" class="card-img-top" /></div>
-
-        <div class="card-body">
-          <h5>{{ product.title }}</h5>
-          <p>{{ product.description }}</p>
-          <router-link
-            v-show="$route.name === 'products'"
-            :to="{ name: 'productDetails', params: { id: product._id } }"
-          >
-            <button class="btn btn-primary">product Details</button>
-          </router-link>
-        </div>
+        <ProductBox :product="product" />
       </div>
     </div>
   </div>
@@ -33,9 +25,10 @@
 
 <script>
 const axios = require("axios");
+import ProductBox from "@/components/product/ProductBox.vue";
 export default {
   name: "ProductsView",
-
+  components: { ProductBox },
   data() {
     return {
       // baseUrl: "https://udemy-eshopp-app.onrender.com/api/v1/",

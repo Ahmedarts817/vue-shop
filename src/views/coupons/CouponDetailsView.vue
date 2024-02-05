@@ -1,18 +1,20 @@
 <template>
-  <h1 class="mb-5">Coupon Details</h1>
+  <div class="container">
+    <h1 class="mb-5">Coupon Details</h1>
 
-  <div>
-    <h3>{{ coupon.name }}</h3>
-    <h5>coupon name : {{ coupon.name }}</h5>
-    <h5>coupon expiry date : {{ coupon.expire }}</h5>
-    <h5>coupon dicount amount : {{ coupon.discount }}</h5>
-    <router-link
-      :to="{ name: 'editCoupon', params: { id: this.$route.params.id } }"
-      ><a class="m-4 btn btn-success" href="">Edit</a></router-link
-    >
-    <button @click="deleteCoupon" class="m-4 btn btn-success" href="">
-      Delete
-    </button>
+    <div>
+      <h3>{{ coupon.name }}</h3>
+      <h5>coupon name : {{ coupon.name }}</h5>
+      <h5>coupon expiry date : {{ coupon.expire }}</h5>
+      <h5>coupon dicount amount : {{ coupon.discount }}</h5>
+      <router-link
+        :to="{ name: 'editCoupon', params: { id: this.$route.params.id } }"
+        ><a class="m-4 btn btn-success" href="">Edit</a></router-link
+      >
+      <button @click="deleteCoupon" class="m-4 btn btn-success" href="">
+        Delete
+      </button>
+    </div>
   </div>
 </template>
 

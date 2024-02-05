@@ -40,13 +40,6 @@
       </button>
     </div>
 
-    <router-link
-      :to="{ name: 'editProduct', params: { id: this.$route.params.id } }"
-      ><a class="m-4 btn btn-primary" href="">Edit</a></router-link
-    >
-    <button @click="deleteProduct" class="m-4 btn btn-primary" href="">
-      Delete
-    </button>
     <!-- wishlist buttons  -->
     <button
       v-if="!itemIsInWishlist && !addedToWishlist"
@@ -100,7 +93,7 @@ export default {
       return this.wishlistItems.some((item) => this.product._id == item._id);
     },
     itemIsInCart() {
-      return this.cartItems.some((item) => this.product_id == item.product.id);
+      return this.cartItems.some((item) => this.product._id == item.product.id);
     },
   },
   methods: {
@@ -125,20 +118,6 @@ export default {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
         .then((res) => (this.cartItems = res.data.data.cartItems))
-        .catch((err) => console.log(err));
-    },
-    async deleteProduct() {
-      await axios({
-        method: "delete",
-        url: `${this.baseUrl}products/${this.$route.params.id}`,
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
-        .then(
-          setTimeout(() => {
-            this.fetchData();
-            this.$router.push("/products");
-          }, 1)
-        )
         .catch((err) => console.log(err));
     },
     async addToWishlist() {

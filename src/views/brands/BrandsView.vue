@@ -5,19 +5,15 @@
         <h3>Our Brands</h3>
       </div>
       <router-link :to="{ name: 'addBrand' }">
-        <a class="btn btn-success">Add Brand</a>
+        <a class="btn btn-success mb-3">Add Brand</a>
       </router-link>
     </div>
     <div class="row">
-      <div
-        v-for="brand of brands"
-        :key="brand.id"
-        class="col-md-6 col-lg-4 p-2 m-2 card"
-      >
-        <div><img :src="brand.image" alt="" class="card-img-top" /></div>
-
-        <div class="card-body">
-          <h5>{{ brand.name }}</h5>
+      <div v-for="brand of brands" :key="brand.id" class="col-md-4 col-lg-3">
+        <div class="p-3 bg-white">
+          <img :src="brand.image" alt="" class="img-fluid" />
+        </div>
+        <div class="text-center mt-2">
           <router-link
             v-show="$route.name === 'brands'"
             :to="{ name: 'brandDetails', params: { id: brand._id } }"

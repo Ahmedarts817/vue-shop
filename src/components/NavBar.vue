@@ -1,7 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <router-link to="/">
+        <a class="navbar-brand brand fw-bold position-relative">Noon</a>
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -14,37 +16,32 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link to="/"
-              ><a class="nav-link" href="">Home</a></router-link
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+          <li class="nav-item" v-bind:hidden="name">
+            <router-link to="/signin"
+              ><a class="nav-link" href="">Login</a></router-link
             >
           </li>
+          <li class="nav-item" v-show="name">
+            <a @click="logOut" class="nav-link" href="">Logout</a>
+          </li>
           <li class="nav-item">
-            <router-link to="/about"
-              ><a class="nav-link" href="">About</a>
+            <router-link to="/wishlist"
+              ><a class="nav-link" href="">Wishlist</a>
             </router-link>
           </li>
-
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            <router-link to="/cart"
+              ><a class="nav-link" href="">Cart</a>
+            </router-link>
+          </li>
+          <li class="nav-item" v-show="role === 'admin'">
+            <router-link to="/admin"
+              ><a class="nav-link" href="">Admin</a>
+            </router-link>
+          </li>
+          <li class="nav-item" v-show="name">
+            <p class="nav-link" href="">Hi {{ name }}</p>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -61,7 +58,58 @@
   </nav>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "NavBar",
+  data() {
+    return {
+      baseURL: "http://localhost:8000/api/v1/",
+      name: null,
+      role: null,
+    };
+  },
+  methods: {
+    logOut() {
+      localStorage.removeItem("token");
+      this.$router.push("/");
+    },
+    async getMyinfo() {
+      await axios({
+        method: "get",
+        url: `${this.baseURL}users/getMe`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          this.name = res.data.data.name.toUpperCase();
+          this.role = res.data.data.role;
+        })
+        .catch((err) => console.log(err));
+    },
+  },
+  mounted() {
+    this.getMyinfo();
+  },
 };
 </script>
+<style scoped>
+nav {
+  background-color: #feee00;
+}
+.brand::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000 transparent #000 transparent;
+  border-radius: 50%;
+  background-color: #9f9c9c21;
+  z-index: 0;
+}
+</style>

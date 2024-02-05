@@ -1,24 +1,39 @@
 <template>
-  <h1>Order Details</h1>
+  <div class="container">
+    <h1 class="my-3 text-center">Order Details</h1>
 
-  <div>
-    <h3>Order</h3>
-    <div v-for="item of order.cartItems" :key="item._id">
-      {{ item.product.title }}
-      <img :src="item.mage" alt="" width="200" />
+    <div class="bg-light px-5 py-3">
+      <h3>Order</h3>
+      <div
+        v-for="item of order.cartItems"
+        :key="item._id"
+        class="border-1 text-white p-2 bg-light"
+      >
+        <div class="item bg-white text-black d-flex align-items-center px-5">
+          <p class="w-25">{{ item.product.title }}</p>
+          <img :src="item.product.imageCover" alt="" width="150" />
+        </div>
+      </div>
+      <p>user name : {{ user.name }}</p>
+      <p>user email : {{ user.email }}</p>
+      <p>total price : {{ order.totalOrderPrice }}</p>
+      <p>payment Method Type : {{ order.paymentMethodType }}</p>
+      <button
+        v-if="!delivered"
+        @click="updateToDelivered"
+        class="btn btn-primary mt-3 me-3"
+      >
+        Update to Delivered
+      </button>
+      <button v-if="delivered" class="btn btn-success mt-3 me-3">
+        Delivered
+      </button>
+      <button v-if="!paid" @click="updateToPaid" class="btn btn-primary mt-3">
+        Update to Paid
+      </button>
+      <button v-if="paid" class="btn btn-success mt-3">Paid</button>
     </div>
-    user name : {{ user.name }} user email : {{ user.email }} || total price :
-    {{ order.totalOrderPrice }} || payment Method Type :
-    {{ order.paymentMethodType }}
   </div>
-  <button v-if="!delivered" @click="updateToDelivered" class="btn btn-primary">
-    Update to Delivered
-  </button>
-  <button v-if="delivered" class="btn btn-success">Delivered</button>
-  <button v-if="!paid" @click="updateToPaid" class="btn btn-primary">
-    Update to Paid
-  </button>
-  <button v-if="paid" class="btn btn-success">Paid</button>
 </template>
 <script>
 import axios from "axios";

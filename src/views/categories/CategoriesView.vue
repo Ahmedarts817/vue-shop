@@ -4,7 +4,10 @@
       <div class="text-center my-4">
         <h3>Our Categories</h3>
       </div>
-      <router-link :to="{ name: 'addCategory' }">
+      <router-link
+        :to="{ name: 'addCategory' }"
+        v-show="$route.name === 'admincategories'"
+      >
         <a class="btn btn-success">Add Category</a>
       </router-link>
     </div>

@@ -1,20 +1,25 @@
 <template>
-  <h1>All Orders</h1>
+  <div class="container">
+    <h1 class="my-3 text-center">All Orders</h1>
 
-  <div v-for="order of orders" :key="order._id">
-    <h3>Order</h3>
-    user name : {{ order.user.name }} || user email : {{ order.user.email }} ||
-    total price : {{ order.totalOrderPrice }} || payment Method Type :
-    {{ order.paymentMethodType }}
-    <router-link
-      :to="{
-        name: 'orderDetails',
-        params: { id: order._id },
-      }"
-      ><button class="btn btn-primary">Order Details</button></router-link
+    <div
+      v-for="order of orders"
+      :key="order._id"
+      class="bg-white rounded px-5 py-2 mb-3"
     >
-
-    <hr />
+      <h3>Order</h3>
+      <p>user name : {{ order.user.name }}</p>
+      <p>user email : {{ order.user.email }}</p>
+      <p>total price : {{ order.totalOrderPrice }}</p>
+      <p>payment Method Type : {{ order.paymentMethodType }}</p>
+      <router-link
+        :to="{
+          name: 'orderDetails',
+          params: { id: order._id },
+        }"
+        ><button class="btn btn-primary">Order Details</button></router-link
+      >
+    </div>
   </div>
 </template>
 <script>

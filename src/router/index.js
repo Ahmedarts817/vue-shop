@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import AdminView from "../views/AdminView.vue";
 //category router
 import CategoriesView from "../views/categories/CategoriesView";
 import AddCategoryView from "../views/categories/AddCategoryView";
@@ -47,8 +48,18 @@ const routes = [
     component: HomeView,
   },
   {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
+  },
+  {
     path: "/categories",
     name: "categories",
+    component: CategoriesView,
+  },
+  {
+    path: "/admin/categories",
+    name: "admincategories",
     component: CategoriesView,
   },
   {
@@ -109,6 +120,11 @@ const routes = [
   {
     path: "/products",
     name: "products",
+    component: ProductsView,
+  },
+  {
+    path: "/admin/products",
+    name: "adminproducts",
     component: ProductsView,
   },
   {
