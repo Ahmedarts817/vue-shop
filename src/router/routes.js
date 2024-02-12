@@ -1,44 +1,31 @@
-import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AdminView from "../views/AdminView.vue";
 import NotFound from "../views/NotFound.vue";
-import AboutView from "../views/AboutView";
-//category router
 import CategoriesView from "../views/categories/CategoriesView";
 import AddCategoryView from "../views/categories/AddCategoryView";
 import EditCategoryView from "../views/categories/EditCategoryView";
 import CategoryDetailsView from "../views/categories/CategoryDetailsView";
-//subcategory router
 import SubcategoriesView from "../views/subcategories/SubcategoriesView";
 import AddSubcategoryView from "../views/subcategories/AddSubcategoryView";
 import EditSubcategoryView from "../views/subcategories/EditSubcategoryView";
 import SubcategoryDetailsView from "../views/subcategories/SubcategoryDetailsView";
-//Brand Router
 import BrandsView from "../views/brands/BrandsView";
 import BrandDetailsView from "../views/brands/BrandDetailsView";
 import AddBrandView from "../views/brands/AddBrandView";
 import EditBrandView from "../views/brands/EditBrandView";
-// Product Router
 import ProductsView from "../views/products/ProductsView";
 import ProductDetatailsView from "../views/products/ProductDetailsView";
 import AddProductView from "../views/products/AddProductView";
 import EditProductView from "../views/products/EditProductView";
-//wishlist router
 import WishlistView from "../views/wishlist/WishlistView";
-// cart router
 import CartView from "../views/cart/CartView";
-
-// Coupon router
 import CouponsView from "../views/coupons/CouponsView";
 import CouponDetailsView from "../views/coupons/CouponDetailsView";
 import AddCouponView from "../views/coupons/AddCouponView";
 import EditCouponView from "../views/coupons/EditCouponView";
-//order router
 import CashOrderView from "../views/orders/CashOrderView";
 import OrdersView from "../views/orders/OrdersView";
 import OrderDetailsView from "../views/orders/OrderDetailsView";
-// auth router
-
 import SignUp from "../views/auth/SignUp";
 import SignIn from "../views/auth/SignIn";
 import NotFoundPage from "../views/NotFoundPage";
@@ -54,14 +41,9 @@ const routes = [
     },
   },
   {
-    path: "/:pathMatch(.*)*",
+    path: "/pathMatch(.*)*",
     name: "notfound",
     component: NotFound,
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: AboutView,
   },
   {
     path: "/admin",
@@ -227,10 +209,3 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
 ];
-
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
-});
-
-export default router;

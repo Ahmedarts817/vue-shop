@@ -65,8 +65,8 @@ export default {
         .then((result) => {
           console.log(result.data.token);
           localStorage.setItem("token", result.data.token);
-          this.$router.push("/");
-          window.location.replace("/");
+          this.$router.replace("/");
+          this.$emit("getMyInfo");
         })
         .catch((err) => {
           this.error = err.message;
@@ -77,5 +77,6 @@ export default {
       this.error = null;
     },
   },
+  emits: ["getMyInfo"],
 };
 </script>

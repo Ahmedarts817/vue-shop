@@ -17,12 +17,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
-          <li class="nav-item" v-bind:hidden="name">
+          <li class="nav-item" v-bind:hidden="userName">
             <router-link to="/signin"
               ><a class="nav-link" href="">Login</a></router-link
             >
           </li>
-          <li class="nav-item" v-show="name">
+          <li class="nav-item" v-show="userName">
             <a @click="logOut" class="nav-link" href="">Logout</a>
           </li>
           <li class="nav-item">
@@ -35,13 +35,13 @@
               ><a class="nav-link" href="">Cart</a>
             </router-link>
           </li>
-          <li class="nav-item" v-show="role === 'admin'">
+          <li class="nav-item" v-show="userRole === 'admin'">
             <router-link to="/admin"
               ><a class="nav-link" href="">Admin</a>
             </router-link>
           </li>
-          <li class="nav-item" v-show="name">
-            <p class="nav-link" href="">Hi {{ name }}</p>
+          <li class="nav-item" v-show="userName">
+            <p class="nav-link" href="">Hi {{ userName }}</p>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -58,38 +58,14 @@
   </nav>
 </template>
 <script>
-import axios from "axios";
 export default {
   name: "NavBar",
-  data() {
-    return {
-      baseURL: "http://localhost:8000/api/v1/",
-      name: null,
-      role: null,
-    };
-  },
+  props: ["userName", "userRole"],
   methods: {
     logOut() {
       localStorage.removeItem("token");
       this.$router.push("/");
     },
-    async getMyinfo() {
-      await axios({
-        method: "get",
-        url: `${this.baseURL}users/getMe`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => {
-          this.name = res.data.data.name.toUpperCase();
-          this.role = res.data.data.role;
-        })
-        .catch((err) => console.log(err));
-    },
-  },
-  mounted() {
-    this.getMyinfo();
   },
 };
 </script>

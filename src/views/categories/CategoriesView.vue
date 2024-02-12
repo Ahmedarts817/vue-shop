@@ -25,27 +25,11 @@
 
 <script>
 import CategoryBox from "@/components/category/CategoryBox.vue";
-const axios = require("axios");
+import categoriesMixin from "@/mixins/categoriesMixin";
 export default {
   name: "CategoriesView",
   components: { CategoryBox },
 
-  data() {
-    return {
-      categories: null,
-      baseUrl: "http://localhost:8000/api/v1/",
-    };
-  },
-  methods: {
-    async fetchData() {
-      await axios
-        .get(`${this.baseUrl}categories`)
-        .then((res) => (this.categories = res.data.data))
-        .catch((err) => console.log(err));
-    },
-  },
-  mounted() {
-    this.fetchData();
-  },
+  mixins: [categoriesMixin],
 };
 </script>

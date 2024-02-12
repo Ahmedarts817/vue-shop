@@ -24,28 +24,11 @@
 </template>
 
 <script>
-const axios = require("axios");
 import ProductBox from "@/components/product/ProductBox.vue";
+import productsMixin from "@/mixins/productsMixin";
 export default {
   name: "ProductsView",
   components: { ProductBox },
-  data() {
-    return {
-      // baseUrl: "https://udemy-eshopp-app.onrender.com/api/v1/",
-      baseUrl: "http://localhost:8000/api/v1/",
-      products: null,
-    };
-  },
-  methods: {
-    async fetchData() {
-      await axios
-        .get(`${this.baseUrl}products`)
-        .then((res) => (this.products = res.data.data))
-        .catch((err) => console.log(err));
-    },
-  },
-  mounted() {
-    this.fetchData();
-  },
+  mixins: [productsMixin],
 };
 </script>

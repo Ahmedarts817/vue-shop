@@ -119,36 +119,12 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import CategoryBox from "@/components/category/CategoryBox.vue";
 import ProductBox from "@/components/product/ProductBox.vue";
-const axios = require("axios");
+import categoriesMixin from "@/mixins/categoriesMixin";
+import productsMixin from "@/mixins/productsMixin";
 export default {
   name: "HomeView",
   components: { CategoryBox, ProductBox },
-
-  data() {
-    return {
-      categories: null,
-      products: null,
-      baseUrl: "http://localhost:8000/api/v1/",
-    };
-  },
-  methods: {
-    async fetchData() {
-      await axios
-        .get(`${this.baseUrl}categories`)
-        .then((res) => (this.categories = res.data.data))
-        .catch((err) => console.log(err));
-      await axios
-        .get(`${this.baseUrl}products`)
-        .then((res) => {
-          this.products = res.data.data;
-        })
-        .catch((err) => console.log(err));
-      this.$router.push("/");
-    },
-  },
-  mounted() {
-    this.fetchData();
-  },
+  mixins: [categoriesMixin, productsMixin],
 };
 </script>
 <style scoped>

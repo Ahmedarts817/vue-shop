@@ -1,14 +1,41 @@
 <template>
-  <NavBar />
-  <router-view />
+  <NavBar :userName="userName" :userRole="userRole" />
+  <router-view @getMyInfo="getMyinfo" />
   <FooterView />
 </template>
 <script>
 import NavBar from "./components/NavBar.vue";
 import FooterView from "./components/FooterView.vue";
+import axios from "axios";
 export default {
   name: "App",
   components: { NavBar, FooterView },
+  data() {
+    return {
+      baseURL: "http://localhost:8000/api/v1/",
+      userName: null,
+      userRole: null,
+    };
+  },
+  methods: {
+    async getMyinfo() {
+      await axios({
+        method: "get",
+        url: `${this.baseURL}users/getMe`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          this.userName = res.data.data.name.toUpperCase();
+          this.userRole = res.data.data.role;
+        })
+        .catch((err) => console.log(err));
+    },
+  },
+  mounted() {
+    this.getMyinfo();
+  },
 };
 </script>
 <style>
